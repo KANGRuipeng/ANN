@@ -1,1 +1,1 @@
-This is a one hidden layer neural network. The structure of this neural network is clear and if you want to spped up the training speed, just change loop to matrix manipulation.
+This is a one hidden layer neural network. The structure of this neural network is clear and if you want to speed up the training speed, just change loop to matrix manipulation.
