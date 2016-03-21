@@ -1,1 +1,6 @@
-This is a one hidden layer neural network. The structure of this neural network is clear and if you want to speed up the training speed, just change loop to matrix manipulation. 
+#ANN 
+
+This is a one hidden layer neural network. 
+The structure of this neural network is clear and if you want to speed up the training speed, just change loop to matrix manipulation. 
+
+If you have any question, just feel free to contact me. Email 18704502751@163.com or rkangaa@connect.ust.hk
