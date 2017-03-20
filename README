@@ -5,37 +5,3 @@ The structure of this neural network is clear and if you want to speed up the tr
 
 If you have any question, just feel free to contact me. Email 18704502751@163.com or rkangaa@connect.ust.hk
 
-
-%PRELAB ELEC 3200 LAB 2
-s = tf('s');
-Ra = 3.3; % ohm, resistance of motor circuit
-K = 0.065; % Nm/A , Torque Constant 
-X = 1.6/360; % V/deg -> given 1.6 V/rad, position sgnl const 
-Ka = 2; % no unit, power amplif voltage gain
-F = K^2/Ra; % Nm/s, motor damping term
-J = 3.34*10^-4; % kgm^2, inertia
-Kv = K/Ra; %one of plant transf function
-
-%P controller
-Pdr = 0.5; % damping ratio P controller
-PKp = (F*Ra)/ (K*2*Pdr*Ka*J); % no unit, proportional gain P ctrl
-Pwn = sqrt((PKp*Ka*Kv)/J); %omega term
-%This section use to run the step response, but it's error
-Psys_dy = -1 / (J*s^2 + F*s + PKp*Ka*Kv); %transf funct d to y
-Psys_ry = Pwn^2 /(s^2 + 2*Pdr*Pwn*s + Pwn^2); %transf funct r to y
-[y,t] = step(Psys_ry);  %step response r to y
-% [y1,u]= step(d*Psys_dy);  %step response d to y
-H = step(Psys_ry, 0:0.001:0.3) + step(0.01*Psys_dy, 0:0.001:0.3);  %d=0.01
-K = step(Psys_ry, 0:0.001:0.3) + step(0.00001*Psys_dy, 0:0.001:0.3);  %d=0.00001
-
-plot(0:0.001:0.3,H)
-figure
-plot(0:0.001:0.3,K)
-%I confuse to use which steady state error formula should I use
-PSE_us = 1/(1+PKp);  %steady state error due to unit step input
-PSE_ur = F/(PKp*Ka*Kv);  %steady state error due to unit ramp input
-PSE = abs(1-y(end));  %steady state error
-Pinfo = stepinfo(y,t);
-Ptr = Pinfo.RiseTime; %rising time
-Ppo = Pinfo.Overshoot; %percent overshoot
-Pts = Pinfo.SettlingTime; %settling time
